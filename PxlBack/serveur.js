@@ -9,10 +9,9 @@ const {
   checkUserConnected,
   requireAuth,
 } = require("./middleware/auth.middleware");
-const userPostModel = require("./models/userPost.model");
 
 const app = express();
-
+app.use(express.static("profile"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());

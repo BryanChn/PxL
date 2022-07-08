@@ -16,9 +16,14 @@ module.exports.ReadPost = async (req, res) => {
 };
 
 module.exports.CreatePost = async (req, res) => {
+  let fileName;
+  fileName = req.body.posterId + Date.now() + ".jpg";
+  console.log(fileName);
+
   const newPost = new userPostModel({
     posterId: req.body.posterId,
     message: req.body.message,
+    picture: req.file !== null ? "./uploads/posts/" + fileName : "",
     video: req.body.video,
     likers: [],
     comments: [],
