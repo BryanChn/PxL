@@ -25,3 +25,13 @@ module.exports.signInErrors = (err) => {
 
   return errors;
 };
+
+module.exports.uploadProfilErrors = (err) => {
+  let errors = { format: "", maxSize: "" };
+  if (err.message.includes("Invalid file type"))
+    errors.format = "Invalid file type";
+
+  if (err.message.includes("maxSize")) errors.maxSize = "File size too big";
+
+  return errors;
+};
