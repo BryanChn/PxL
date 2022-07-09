@@ -17,7 +17,8 @@ module.exports.ReadPost = async (req, res) => {
 
 module.exports.CreatePost = async (req, res) => {
   let fileName;
-  fileName = req.body.posterId + Date.now() + ".jpg";
+  let date = new Date();
+  fileName = req.body.posterId + "____" + date + ".jpg";
   console.log(fileName);
 
   const newPost = new userPostModel({

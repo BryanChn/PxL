@@ -8,14 +8,18 @@ const multer = require("multer");
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     if (
-      fs.existsSync("./client/public/uploads/profil/" + req.params.id + ".jpg")
+      fs.existsSync(
+        "./client/public/uploads/profil/" + req.body.userId + ".jpg"
+      )
     ) {
-      fs.unlinkSync("./client/public/uploads/profil/" + req.params.id + ".jpg");
+      fs.unlinkSync(
+        "./client/public/uploads/profil/" + req.body.userId + ".jpg"
+      );
     }
     cb(null, "./client/public/uploads/profil");
   },
   filename: function (req, file, cb) {
-    cb(null, req.params.id + ".jpg");
+    cb(null, req.body.userId + ".jpg");
   },
 });
 const upload = multer({ storage: storage, limits: { fileSize: 10485760 } });
@@ -34,11 +38,7 @@ router.patch("/follow/:id", userController.followUser);
 router.patch("/unfollow/:id", userController.UnfollowUser);
 
 // upload profil image
-router.post(
-  "/upload/:id",
-  upload.single("file"),
-  uploadController.uploadProfil
-);
+router.post("/upload", upload.single("file"), uploadController.uploadProfil);
 
 // router.get("/upload/picture/:picture")
 

@@ -1,12 +1,17 @@
 const UserModel = require("../models/user.model");
 
 module.exports.uploadProfil = async (req, res) => {
-  const fileName = req.params.id + ".jpg";
+  const fileName = req.body.userId + ".jpg";
+  console.log(fileName);
 
   try {
     UserModel.findByIdAndUpdate(
-      req.params.id,
-      { $set: { picture: "./uploads/profil/" + fileName } },
+      req.body.userId,
+      {
+        $set: {
+          picture: "./uploads/profil/" + fileName,
+        },
+      },
       { new: true, upsert: true, setDefaultsOnInsert: true },
       (err, docs) => {
         if (!err) return res.send(docs);
