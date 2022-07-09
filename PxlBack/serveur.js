@@ -9,8 +9,18 @@ const {
   checkUserConnected,
   requireAuth,
 } = require("./middleware/auth.middleware");
+const cors = require("cors");
 
 const app = express();
+const corsOptions = {
+  origin: process.env.FRONT_URL,
+  credentials: true,
+  allowedHeaders: ["sessionId", "Content-Type"],
+  exposedHeaders: ["sessionId"],
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  preflightContinue: false,
+};
+app.use(cors(corsOptions));
 app.use(express.static("profile"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
